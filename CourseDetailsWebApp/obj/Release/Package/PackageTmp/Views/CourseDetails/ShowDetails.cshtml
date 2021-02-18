@@ -1,0 +1,120 @@
+﻿@using CourseDetailsWebApp.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowDetails</title>
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/Content/Show.css" rel="stylesheet" />
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" id="n" href="#">SaveCourseWebApp</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="location.href = '@Url.Action("Assign", "CourseDetails")'">Assign Data</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Show All</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="location.href = '@Url.Action("Home", "CourseDetails")'">Home</a>
+        </li>
+    </ul>
+</nav>
+<br/> <br/>
+
+<div class="container">
+    <center>
+        <div class="jumbotron jumbotron-fluid">
+            <h1>Show Assign List</h1>
+        </div>
+        <form method="POST">
+            <table id="table1">
+                <tr>
+                    <td>
+                        <label for="userId">User Id</label>
+                    </td>
+                    <td>
+                        <select class="downdesign form-control" id="userId" name="userId">
+                            <option value="">SELECT</option>
+                            @foreach (LogIn logIn in ViewBag.UserCodeIds)
+                            {
+                                <option value="@logIn.Id">@logIn.UserCodeId</option>
+                            }
+
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="table table-bordered table-striped table-hover" id="courseList">
+            <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Course Title</th>
+                <th>Course Code</th>
+                <th>Assignment No. & Title</th>
+                <th>Class Test No. & Title</th>
+                <th>Lab Report No. & Title</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </center>
+</div>
+
+<footer>
+    <div class="text-center py-3">
+        <h1>Design and Developed by</h1>
+        <h3>Md.Ehsanul Islam Khan</h3>
+        © 2019 Copyright:
+        <a href="https://www.linkedin.com/in/md-ehsanul-islam-khan-847777187/">Ehsan</a>
+    </div>
+</footer>
+
+</body>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#courseList').DataTable();
+
+            $('#userId').on('change', function () {
+                var courseId = $('#userId').val();
+                table.clear().draw(false);
+                var json = { id: courseId };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ShowDetails", "CourseDetails")',
+                    contentType: 'application/json',
+                    data: JSON.stringify(json),
+                    success: function (response) {
+                        $.each(response, function (key, value) {
+                            table.row.add([
+                                value.UserCodeId,
+                                value.CourseTitle,
+                                value.CourseCode,
+                                value.Assignment,
+                                value.ClassTest,
+                                value.LabReport
+
+                            ]).draw(false);
+                        });
+                    }
+                });
+            });
+        });
+</script>
+</html>

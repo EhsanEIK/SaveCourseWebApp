@@ -1,0 +1,182 @@
+﻿@using CourseDetailsWebApp.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Assign</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/Content/Assign.css" rel="stylesheet"/>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+    <!-- Brand/logo -->
+    <a class="navbar-brand" id="n" href="#">SaveCourseWebApp</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Assign Data</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="location.href = '@Url.Action("ShowDetails", "CourseDetails")'">Show All</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="location.href = '@Url.Action("LogOut", "CourseDetails")'">LogOut</a>
+        </li>
+    </ul>
+</nav>
+<br /><br/>
+<div class="container">
+    <center>
+        <div class="jumbotron jumbotron-fluid">
+            <h1>Record Your Data</h1>
+        </div>
+        <div id="messageLabel" style="font-size: 25px; color: White;">@ViewBag.Message</div>
+        <form id="courseForm" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        <label for="userId">User Id</label>
+                    </td>
+                    <td>
+                        <select class="downdesign form-control" id="userId" name="userId">
+                            <option value="">SELECT</option>
+                            @foreach (LogIn logIn in ViewBag.UserCodeIds)
+                            {
+                                if (logIn.UserCodeId.Equals(ViewData["UserId"]))
+                                {
+                                    <option value="@logIn.Id">@ViewData["UserId"]</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="semester">Semester</label>
+                    </td>
+                    <td>
+                        <input type="text" id="semester" name="semester" class="form-control" value="6th" disabled />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="courseId">Course Title</label>
+                    </td>
+                    <td>
+                        <select class="downdesign form-control" id="courseId" name="courseId">
+                            <option value="">SELECT</option>
+                            @foreach (Course course in ViewBag.Courses)
+                            {
+                                <option value="@course.Id">@course.CourseTitle</option>
+                            }
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="courseCode">Course Code</label>
+                    </td>
+                    <td>
+                        <input type="text" id="courseCode" name="courseCode" class="form-control" disabled/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="assignment">Assignment No. & Title</label>
+                    </td>
+                    <td>
+                        <input type="text" id="assignment" name="assignment" class="form-control" placeholder="No. & Title"/>
+                    </td>
+                </tr>
+                <br/>
+                <tr>
+                    <td>
+                        <label for="classTest">Class Test No. & Title</label>
+                    </td>
+                    <td>
+                        <input type="text" id="classTest" name="classTest" class="form-control" placeholder="No. & Title" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="labReport">Lab Report No. & Title</label>
+                    </td>
+                    <td>
+                        <input type="text" id="labReport" name="labReport" class="form-control" placeholder="No. & Title" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Save" class="btn btn-primary"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</div>
+
+<footer>
+    <div class="text-center py-3">
+        <h1>Design and Developed by</h1>
+        <h3>Md.Ehsanul Islam Khan</h3>
+        © 2019 Copyright:
+        <a href="https://www.linkedin.com/in/md-ehsanul-islam-khan-847777187/">Ehsan</a>
+    </div>
+</footer>
+</body>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script>
+    setTimeout(function () {
+        $("#messageLabel").hide(1000).empty();
+    }, 3000);
+
+    //For Show in CourseCode by CourseId (course title)
+    $(function () {
+        $('#courseId').on('change', function () {
+            var courseId = $('#courseId').val();
+            //$('#courseCode').val('');
+            var json = { id: courseId };
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetCourseCodeByCourseId", "CourseDetails")',
+                contentType: 'application/json',
+                data: JSON.stringify(json),
+                success: function(response) {
+                    $('#courseCode').val(response['CourseCode']);
+                }
+            });
+        });
+    });
+
+
+    //Validation................................
+
+    $(document).ready(function () {
+        $("#courseForm").validate({
+            rules: {
+                userId: "required",
+                semester: "required",
+                courseId: "required",
+                courseCode: "required"
+            },
+            messages: {
+                userId: "Please select your User Id.",
+                courseId: "Please select the Course Title."
+            }
+        });
+
+    });
+</script>
+</html>

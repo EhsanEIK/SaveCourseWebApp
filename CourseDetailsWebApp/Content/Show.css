@@ -1,0 +1,50 @@
+﻿
+/*nav*/
+nav a {
+    font-size: 20px;
+}
+#n {
+    color: #ff9966;
+    font-size: 30px;
+    font-family: Comic Sans MS;
+}
+/*body*/
+body {
+    background-image: url("/Images/assign_show.jpg");
+    background-size: cover;
+	background-position: center center center center;
+    background-repeat: no-repeat;
+    height: auto;
+    width: auto;
+}
+.jumbotron {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+#userId,#yourUserId {
+    width: 300px;
+    border-color: blueviolet;
+    border-radius: 20px 0px;
+}
+#labelUserId,#userId {
+    margin-top: 10px;
+}
+table tr td label {
+    margin-right: 15px;
+}
+label,th {
+    font-size: 18px;
+    color: white;
+}
+
+/*footer*/
+footer {
+    margin-top: 390px;
+    background-color: #303036;
+    color: white;
+}
+footer h3 {
+    color: #ac9265;
+}
+footer h1 {
+    color: 	#ccccff;
+}

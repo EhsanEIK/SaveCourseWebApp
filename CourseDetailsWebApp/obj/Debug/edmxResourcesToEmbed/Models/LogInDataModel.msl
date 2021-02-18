@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AssignCourseDBModelStoreContainer" CdmEntityContainer="AssignCourseDBEntities">
+    <EntitySetMapping Name="LogInTables">
+      <EntityTypeMapping TypeName="AssignCourseDBModel.LogInTable">
+        <MappingFragment StoreEntitySet="LogInTable">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

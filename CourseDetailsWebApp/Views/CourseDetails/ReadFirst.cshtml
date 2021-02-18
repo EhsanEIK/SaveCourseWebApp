@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>ReadFirst</title>
+    <style>
+        body {
+            background-image: url("/Images/readfirst.jpg");
+            background-size: cover;
+            background-position: center center center center;
+            background-repeat: no-repeat;
+            height: auto;
+            width: auto;
+        }
+        p,a {
+            font-size: 33px;
+        }
+        h3 {
+            font-size: 22px;
+            color: white;
+        }
+        h2 {
+            font-size: 37px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <center>
+        <marquee>
+            <h3>Read It Carefully</h3></marquee>
+        <p>This Web Application name is: ## Save Course Web APP ##, where you can save or assign your submitted Class Test No. & Title, Assignment No. & Title,
+            <br/>
+            Lab Report No. & Title on every course of your existing semester.
+        </p>
+        <p>This web application is developed by
+            <h2>Md.Ehsanul Islam Khan.</h2>
+        </p>
+        <h1>Here some rules of registration system:-</h1>
+        <p>
+            1. Register User ID with this format: REG***.
+            <br/>Don't use any space and any symbolic character( *, ,, ., -, #, $, %, ^, &, !, _ )
+        </p>
+        <h2>Example: REG001 or Reg001</h2>
+        <p>2. Password atleast 6 characters.</p>
+
+        <a href="#" onclick="location.href = '@Url.Action("Register", "CourseDetails")'">Register</a>
+    </center>
+    <br/><br/><br /><br />
+</div>
+</body>
+</html>

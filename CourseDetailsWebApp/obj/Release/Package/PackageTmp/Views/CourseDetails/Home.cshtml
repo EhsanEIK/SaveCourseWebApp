@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/Home.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" id="link1">
+        <marquee><h2>Welcome To Save Course Web App</h2></marquee>
+        <center>
+            <div class="jumbotron jumbotron-fluid">
+                <h1>Log In</h1>
+            </div>
+            <form id="logInForm" method="POST">
+                <div class="form-group">
+                    <label for="userCodeId">User Id:</label>
+                    <input type="text" class="form-control" id="userCodeId" name="userCodeId" placeholder="User Id">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="******">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            <label id="messageLabel" style="font-size: 20px; color: red;">@ViewBag.Message</label>
+            <br /><br />
+            <div>
+                <p>Don't Register?</p>
+                <a href="#" onclick="location.href = '@Url.Action("Register", "CourseDetails")'">Create Account</a>
+            </div>
+        </center>
+    </div>
+</body>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script>
+    setTimeout(function () {
+        $("#messageLabel").hide(1000).empty();
+    }, 3000);
+    //Validation................................
+
+    $(document).ready(function () {
+        $("#logInForm").validate({
+            rules: {
+                userCodeId: "required",
+                password: "required"
+            },
+            messages: {
+                userCodeId: "Please enter your User Id.",
+                password: "Please enter the Password."
+            }
+        });
+
+    });
+</script>
+</html>
